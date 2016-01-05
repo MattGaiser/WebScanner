@@ -34,4 +34,35 @@ public class WebScanner {
         return next; 
         
     }
+    
+    public void intitiateSearch(String startURL, String toFind)
+    {
+        while (true)
+        {
+            String url;
+            WebScannerMethods wsm = new WebScannerMethods();
+            if (this.pagesToGoTo.isEmpty())
+            {
+                url = startURL; 
+                this.pagesGoneTo.add(startURL); 
+            }
+            else 
+            {
+                url = this.nextPage();
+            }
+            wsm.crawl(url);
+            Found victory = new Found();
+            victory.somethingFound = wsm.finder(url);
+            
+            if (victory.somethingFound == true)
+            {
+                //put output of revenue and url function here
+            }
+            else 
+            {
+                System.out.println("Search was unsuccessful for url:" + victory.url);
+            }
+            this.pagesToGoTo.addAll(wsm.getURLs());
+        }
+    }
 }

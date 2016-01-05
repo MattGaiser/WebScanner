@@ -5,10 +5,27 @@
  */
 package webscanner;
 
+import java.util.*;
+
 /**
  *
  * @author Matthew
  */
 public class WebScannerMethods {
+    
+    public void crawl (String next)
+    {
+        
+    }
+    
+    public boolean finder (String searchParameter)
+    {
+        return false;
+    }
+    
+    public List<String> getURLs()
+    {
+        
+    }
     
 }
