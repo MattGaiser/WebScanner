@@ -6,6 +6,7 @@
 package webscanner;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 /**
  *
  * @author Matthew
@@ -15,12 +16,8 @@ public class WebScanner {
     /**
      * @param args the command line arguments
      */
-    Set<String> pagesGoneTo = new HashSet<String>();
-    List<String> pagesToGoTo = new LinkedList<String>();
-    
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+    public Set<String> pagesGoneTo = new HashSet<String>();
+    public List<String> pagesToGoTo = new LinkedList<String>();
     
     private String nextPage()
     {
@@ -35,7 +32,7 @@ public class WebScanner {
         
     }
     
-    public void intitiateSearch(String startURL, String toFind)
+    public void initiateSearch(String startURL, String toFind) throws Exception
     {
         while (true)
         {
@@ -52,15 +49,16 @@ public class WebScanner {
             }
             wsm.crawl(url);
             Found victory = new Found();
-            victory.somethingFound = wsm.finder(url);
+            victory.somethingFound = wsm.finder(toFind);
+            victory.url = url; 
             
             if (victory.somethingFound == true)
             {
-                //put output of revenue and url function here
+                System.out.println("Found revenue");
             }
             else 
             {
-                System.out.println("Search was unsuccessful for url:" + victory.url);
+                //System.out.println("Search was unsuccessful for url:" + victory.url);
             }
             this.pagesToGoTo.addAll(wsm.getURLs());
         }
