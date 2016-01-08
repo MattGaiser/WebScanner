@@ -21,6 +21,7 @@ public class WebScannerMethods {
     private String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1";
     public void crawl (String next) throws Exception
     {
+        
         Connection get = Jsoup.connect(next).userAgent(userAgent);
         get.referrer("http://www.google.com");
         webPage = get.get();
@@ -28,12 +29,12 @@ public class WebScannerMethods {
         
         linked.stream().forEach((link) -> {
             this.links.add(link.absUrl("href"));
-        });
-        
+        });       
     }
     
     public boolean finder (String searchParameter)
     {
+
         String textPile = this.webPage.body().text();
         System.out.println(textPile);
         if (( textPile.toLowerCase().contains(searchParameter.toLowerCase())) == true)
@@ -49,5 +50,6 @@ public class WebScannerMethods {
     {
         return this.links;
     }
+   
     
 }

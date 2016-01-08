@@ -45,8 +45,16 @@ public class WebScanner {
             }
             else 
             {
+                
                 url = this.nextPage();
+                if (urlCheck(startURL,url) == false) 
+                {
+                    this.pagesGoneTo.add(url);
+                    this.pagesToGoTo.remove(0);
+                    url = this.nextPage();
+                }
             }
+            System.out.println(url);
             wsm.crawl(url);
             Found victory = new Found();
             victory.somethingFound = wsm.finder(toFind);
@@ -62,5 +70,20 @@ public class WebScanner {
             }
             this.pagesToGoTo.addAll(wsm.getURLs());
         }
+    }
+     private boolean urlCheck(String startURL, String next)
+    {
+       String[] pageCheck = {".php",".html",".aspx",".htm"};
+       for (int i = 0; i < pageCheck.length;i++)
+       {
+          if ((next.toLowerCase().contains(pageCheck[i].toLowerCase())) == true)
+          {
+              if((next.toLowerCase().contains(startURL) == true))
+                      {
+                          
+                      }
+          }
+       }
+       return false;
     }
 }

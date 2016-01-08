@@ -13,7 +13,7 @@ public class goFindIt {
      public static void main(String[] args) throws Exception {
         // TODO code application logic here
         WebScanner thing = new WebScanner();
-        thing.initiateSearch("https://www.aflac.com/","revenue");
+        thing.initiateSearch("http://matthewgaiser.ca/","alberta");
     }
     
 }
