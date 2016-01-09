@@ -6,7 +6,6 @@
 package webscanner;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 /**
  *
  * @author Matthew
@@ -21,15 +20,24 @@ public class WebScanner {
     
     private String nextPage()
     {
-        String next;
+        String next = "No URLS";
+        
         
         do {
+            if (this.pagesToGoTo.isEmpty() == true)
+        {
+            System.out.println("Out of Pages");
+            next = "Out";
+            return next;
+        }
             next = this.pagesToGoTo.remove(0);
         
         } while (this.pagesGoneTo.contains(next));
         this.pagesGoneTo.add(next);
+        System.out.println(next);
         return next; 
         
+     
     }
     
     public void initiateSearch(String startURL, String toFind) throws Exception
@@ -45,16 +53,20 @@ public class WebScanner {
             }
             else 
             {
-                
-                url = this.nextPage();
-                if (urlCheck(startURL,url) == false) 
-                {
-                    this.pagesGoneTo.add(url);
-                    this.pagesToGoTo.remove(0);
-                    url = this.nextPage();
+                if (this.pagesToGoTo.isEmpty() == true){
+                 System.out.println("Out of Pages");
+                 url = "Lack of URLS";
                 }
+                else {
+                    url = this.nextPage();
+                    if (url == "Out")
+                    {
+                        return; 
+                    }
+                }
+ 
             }
-            System.out.println(url);
+            //System.out.println(url);
             wsm.crawl(url);
             Found victory = new Found();
             victory.somethingFound = wsm.finder(toFind);
@@ -71,19 +83,5 @@ public class WebScanner {
             this.pagesToGoTo.addAll(wsm.getURLs());
         }
     }
-     private boolean urlCheck(String startURL, String next)
-    {
-       String[] pageCheck = {".php",".html",".aspx",".htm"};
-       for (int i = 0; i < pageCheck.length;i++)
-       {
-          if ((next.toLowerCase().contains(pageCheck[i].toLowerCase())) == true)
-          {
-              if((next.toLowerCase().contains(startURL) == true))
-                      {
-                          
-                      }
-          }
-       }
-       return false;
-    }
+    
 }

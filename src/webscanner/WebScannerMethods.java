@@ -28,7 +28,10 @@ public class WebScannerMethods {
         Elements linked = webPage.select("a[href]"); 
         
         linked.stream().forEach((link) -> {
+            if (urlCheck(link.absUrl("href")) == true) {
+         //   System.out.println(link.absUrl("href"));
             this.links.add(link.absUrl("href"));
+            }
         });       
     }
     
@@ -36,10 +39,10 @@ public class WebScannerMethods {
     {
 
         String textPile = this.webPage.body().text();
-        System.out.println(textPile);
+     //   System.out.println(textPile);
         if (( textPile.toLowerCase().contains(searchParameter.toLowerCase())) == true)
         {
-            System.out.println("Yipee");
+       //     System.out.println("Yipee");
             boolean var = true;
             return var;
         }
@@ -51,5 +54,23 @@ public class WebScannerMethods {
         return this.links;
     }
    
+    
+    private boolean urlCheck(String link) {
+        String[] pageCheck = {".pdf", ".jpg"};
+        //System.out.println(link);
+        for (int i = 0; i < pageCheck.length; i++) {
+            
+            if (link.toLowerCase().contains(pageCheck[i]) == true)
+            {
+                return false; 
+            }
+            
+        }
+        if (link.toLowerCase().contains("matthewgaiser.ca") == true) {
+
+                return true;
+            }
+        return false;
+    }
     
 }
